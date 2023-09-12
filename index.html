@@ -12,7 +12,7 @@
     <style>
         body {
             font-family: 'Maven Pro', sans-serif;
-            background-color: #f5f5f5;
+            background-color: #e6e6e6;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -34,7 +34,7 @@
 </head>
 
 <body>
-    <div id="testDday">📑Midterm</div>
+    <div id="testDday">📑 Midterm</div>
     <div id="testDdayTime"></div>
 
     <script>
@@ -46,22 +46,32 @@
 
             const remainingTime = eventTime - currentTime;
 
-            const seconds = Math.floor(remainingTime / 1000);
-            const minutes = Math.floor(seconds / 60);
-            const hours = Math.floor(minutes / 60);
-            const days = Math.floor(hours / 24);
+            const secondsInTotal = Math.floor(remainingTime / 1000);
+            const minutesInTotal = Math.floor(secondsInTotal / 60);
+            const hoursInTotal = Math.floor(minutesInTotal / 60);
+            const daysInTotal = Math.floor(hoursInTotal / 24);
+            const weeksInTotal = Math.floor(daysInTotal / 7);
+            const monthsInTotal = Math.floor(weeksInTotal / 4);
+
+            const seconds = secondsInTotal % 60;
+            const minutes = minutesInTotal % 60;
+            const hours = hoursInTotal % 24;
+            const days = daysInTotal % 7;
+            const weeks = weeksInTotal % 4;
 
             return {
+                months: monthsInTotal,
+                weeks: weeks,
                 days: days,
-                hours: hours % 24,
-                minutes: minutes % 60,
-                seconds: seconds % 60
+                hours: hours,
+                minutes: minutes,
+                seconds: seconds
             };
         }
 
         function updateDday() {
             const testDate = calculateDday("2023-10-20T00:00:00");
-            document.getElementById("testDdayTime").innerHTML = `${testDate.days}:${testDate.hours}:${testDate.minutes}:${testDate.seconds}`;
+            document.getElementById("testDdayTime").innerHTML = `${testDate.months}m ${testDate.weeks}w ${testDate.days}d ${testDate.hours}h ${testDate.minutes}m ${testDate.seconds}s ago`;
         }
 
         setInterval(updateDday, 1000);
@@ -69,5 +79,3 @@
 </body>
 
 </html>
-
-
