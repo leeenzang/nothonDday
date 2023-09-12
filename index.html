@@ -85,6 +85,14 @@
             const testDate = calculateDday("2023-10-20T00:00:00");
             const topcitDate = calculateDday("2023-10-28T00:00:00");
 
-            document.getElementById("testDday").innerHTML = `${testDate.days}일 ${testDate.hours}시간 ${testDate.minutes}분 ${testDate.seconds}초`;
-            document.getElementById("topcitDday").innerHTML = `${
+            document.getElementById("testDday").innerHTML = `📑Midterm: ${testDate.days}일 ${testDate.hours}시간 ${testDate.minutes}분 ${testDate.seconds}초 남았습니다.`;
+            document.getElementById("topcitDday").innerHTML = `📜Topcit: ${topcitDate.days}일 ${topcitDate.hours}시간 ${topcitDate.minutes}분 ${topcitDate.seconds}초 남았습니다.`;
+        }
+
+        setInterval(updateDday, 1000);
+    </script>
+</body>
+
+</html>
+
 
