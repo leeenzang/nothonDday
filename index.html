@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디데이</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Sunflower:wght@300&family=Ubuntu:ital,wght@1,500&display=swap');
+
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        #dday-container {
+            padding: 20px 40px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #dday-text {
+            font-size: 24px;
+            font-weight: 500;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="dday-container">
+        <div id="dday-text">시험까지 D-Day: <span id="dday"></span></div>
+    </div>
+    
+    <script>
+        const calculateDDay = (targetDate) => {
+            const now = new Date();
+            const eventDate = new Date(targetDate);
+            const currentTime = now.getTime();
+            const eventTime = eventDate.getTime();
+            const remainingTime = eventTime - currentTime;
+            return Math.ceil(remainingTime / (1000 * 60 * 60 * 24));
+        }
+
+        document.getElementById('dday').innerText = calculateDDay('2023-10-20');
+    </script>
+</body>
+</html>
