@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>디데이</title>
     <style>
@@ -9,43 +11,64 @@
 
         body {
             font-family: 'Ubuntu', sans-serif;
+            background-color: #f5f5f5;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f5f5f5;
         }
 
-        #dday-container {
-            padding: 20px 40px;
-            border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        .dday-container {
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 5px;
         }
 
-        #dday-text {
-            font-size: 24px;
-            font-weight: 500;
-            color: #333;
+        .dday-item {
+            margin-bottom: 15px;
         }
     </style>
 </head>
+
 <body>
-    <div id="dday-container">
-        <div id="dday-text">시험까지 D-Day: <span id="dday"></span></div>
+    <div class="dday-container">
+        <div class="dday-item" id="testDday"></div>
+        <div class="dday-item" id="topcitDday"></div>
     </div>
-    
+
     <script>
-        const calculateDDay = (targetDate) => {
+        function calculateDday(targetDate) {
             const now = new Date();
             const eventDate = new Date(targetDate);
             const currentTime = now.getTime();
             const eventTime = eventDate.getTime();
+
             const remainingTime = eventTime - currentTime;
-            return Math.ceil(remainingTime / (1000 * 60 * 60 * 24));
+
+            const seconds = Math.floor(remainingTime / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+
+            return {
+                days: days,
+                hours: hours % 24,
+                minutes: minutes % 60,
+                seconds: seconds % 60
+            };
         }
 
-        document.getElementById('dday').innerText = calculateDDay('2023-10-20');
+        function updateDday() {
+            const testDate = calculateDday("2023-10-20T00:00:00");
+            const topcitDate = calculateDday("2023-10-28T00:00:00");
+
+            document.getElementById("testDday").innerHTML = `시험까지 ${testDate.days}일 ${testDate.hours}시간 ${testDate.minutes}분 ${testDate.seconds}초 남았습니다.`;
+            document.getElementById("topcitDday").innerHTML = `TOPCIT 시험까지 ${topcitDate.days}일 ${topcitDate.hours}시간 ${topcitDate.minutes}분 ${topcitDate.seconds}초 남았습니다.`;
+        }
+
+        setInterval(updateDday, 1000);
     </script>
 </body>
+
 </html>
+
